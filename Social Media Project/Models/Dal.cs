@@ -59,5 +59,14 @@ namespace Social_Media_Project.Models
             }
             return response;
         }
+
+        //api for user approval
+
+        public Response UserApproval(Registration registration, SqlConnection connection)
+            {
+            // based on id we update it
+            Response response = new Response();
+
+        }
     }
 }
