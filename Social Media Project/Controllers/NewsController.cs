@@ -38,14 +38,14 @@ namespace Social_Media_Project.Controllers
         [HttpGet]
         [Route("NewsList")]
 
-        public Response NewsList(News news)
+        public Response NewsList()
         {
             Response response = new Response();
             // create sql connect
             SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("SnCon").ToString());
 
             Dal dal = new Dal();
-            response = dal.AddNews(news, connection);
+            response = dal.NewsList( connection);
             return response;
         }
     }
