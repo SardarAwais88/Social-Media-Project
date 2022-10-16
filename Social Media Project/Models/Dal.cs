@@ -123,7 +123,11 @@ public Response News(News news, SqlConnection connection)
         public Response NewsList(SqlConnection connection)
         {
             Response response= new Response();
-            SqlDataAdapter da = new SqlDataAdapter();
+            SqlDataAdapter da = new SqlDataAdapter("selelct * from news where IsActive=1",connection);
+            DataTable dt =new DataTable();
+            da.Fill(dt);
+
+
         }
 
     }
