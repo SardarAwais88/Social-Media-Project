@@ -120,7 +120,11 @@ public Response News(News news, SqlConnection connection)
 
         }
        
-        
+        public Response NewsList(SqlConnection connection)
+        {
+            Response response= new Response();
+            SqlDataAdapter da = new SqlDataAdapter();
+        }
 
     }
 }
