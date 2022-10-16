@@ -163,5 +163,33 @@ public Response AddNews(News news, SqlConnection connection)
             return response;
         }
 
+        // response for article
+        public Response AddArticle(Article article, SqlConnection connection)
+        {
+            // based on id we update it
+            Response response = new Response();
+            //  SqlCommand cmd = new SqlCommand();
+
+            SqlCommand cmd = new SqlCommand("Insert into Article(Title,Content,Email,Image,IsActive,IsApproved)VALUES('" + article.Title + "','" + article.Content + "','" + article.Email + "','" + article.Image + "',1,0)", connection);
+            connection.Open();
+            int i = cmd.ExecuteNonQuery();
+            connection.Close();
+
+            if (i > 0)
+            {
+                response.StatusCode = 200;
+                response.StatusMessage = "News Created";
+            }
+            else
+            {
+                response.StatusCode = 100;
+                response.StatusMessage = "News Creation failed";
+            }
+            return response;
+            // cmd.CommandType = CommandType.Text;.
+
+
+
+        }
     }
 }
