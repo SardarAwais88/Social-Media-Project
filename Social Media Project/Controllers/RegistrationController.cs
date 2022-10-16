@@ -45,5 +45,18 @@ namespace Social_Media_Project.Controllers
             
             return response;
         }
+        [HttpPost]
+        [Route("UserApproval")]
+        public Response UserApproval(Registration registration)
+        {
+            Response response = new Response();
+            // create sql connect
+            SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("SnCon").ToString());
+
+            Dal dal = new Dal();
+            response = dal.UserApproval(registration, connection);
+
+            return response;
+        }
     }
 }

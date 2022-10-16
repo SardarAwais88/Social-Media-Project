@@ -66,7 +66,61 @@ namespace Social_Media_Project.Models
             {
             // based on id we update it
             Response response = new Response();
+            SqlCommand cmd = new SqlCommand
+                
+          ("Update Registration Set IsAppproved =1 WHERE Id ='" + registration.Id+"'AND ISActive=1 ",connection);
+            connection.Open();
+            int i = cmd.ExecuteNonQuery();
+            connection.Close();
+
+            if (i>0)
+            {
+                response.StatusCode = 200;
+                response.StatusMessage = "User Approved";
+            }
+            else
+            {
+                response.StatusCode = 100;
+                response.StatusMessage = "User  approval failed";
+            }
+            return response;
+            // cmd.CommandType = CommandType.Text;.
+
+
 
         }
+
+// response for news
+
+public Response News(News news, SqlConnection connection)
+            {
+            // based on id we update it
+            Response response = new Response();
+          //  SqlCommand cmd = new SqlCommand();
+                
+         SqlCommand cmd = new SqlCommand("Insert into News(Title,Content,Email,IsActive,CreatedOn)VALUES('" + news.Title + "','" + news.Content + "','" + news.Email + "','" + news.IsActive + "',1,0)", connection);
+            connection.Open();
+            int i = cmd.ExecuteNonQuery();
+            connection.Close();
+
+            if (i>0)
+            {
+                response.StatusCode = 200;
+                response.StatusMessage = "News Created";
+            }
+            else
+            {
+                response.StatusCode = 100;
+                response.StatusMessage = "News Creation failed";
+            }
+            return response;
+            // cmd.CommandType = CommandType.Text;.
+
+
+
+        }
+       
+        
+
     }
 }
