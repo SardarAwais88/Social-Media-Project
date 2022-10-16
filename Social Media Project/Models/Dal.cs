@@ -127,7 +127,20 @@ public Response News(News news, SqlConnection connection)
             DataTable dt =new DataTable();
             da.Fill(dt);
             List<News> lstNews = new List<News>();
-
+            if (dt.Rows.Count>0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    News news = new News();
+                    news.Id=Convert.ToInt32(dt.Rows[i]["ID"]);  
+                    news.Title=Convert.ToString(dt.Rows[i]["Title"]);
+                    news.Content = Convert.ToString(dt.Rows[i]["Content"]);
+                    news.Email = Convert.ToString(dt.Rows[i]["Email"]);
+                    news.IsActive = Convert.ToInt32(dt.Rows[i]["IsActive"]);
+                    news.CreatedOn = Convert.ToString(dt.Rows[i]["CreatedOn"]);
+                    lstNews.Add(news);  
+                }
+            }
 
         }
 
