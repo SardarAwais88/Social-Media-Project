@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Social_Media_Project.Models;
 
 namespace Social_Media_Project.Controllers
 {
@@ -17,5 +19,20 @@ namespace Social_Media_Project.Controllers
         {
             _configuration = configuration;
         }
+
+        [HttpPost]
+        [Route("AddNews")]
+
+        public Response AddNews(News news)
+        {
+            Response response = new Response();
+            // create sql connect
+            SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("SnCon").ToString());
+
+            Dal dal = new Dal();
+            response = dal.News(news, connection);
+            return response;
+        }
+
     }
 }

@@ -92,7 +92,7 @@ namespace Social_Media_Project.Models
 
 // response for news
 
-public Response News(News news, SqlConnection connection)
+public Response AddNews(News news, SqlConnection connection)
             {
             // based on id we update it
             Response response = new Response();
