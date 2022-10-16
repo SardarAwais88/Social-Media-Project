@@ -30,9 +30,23 @@ namespace Social_Media_Project.Controllers
             SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("SnCon").ToString());
 
             Dal dal = new Dal();
-            response = dal.News(news, connection);
+            response = dal.AddNews(news, connection);
             return response;
         }
 
+
+        [HttpGet]
+        [Route("NewsList")]
+
+        public Response NewsList(News news)
+        {
+            Response response = new Response();
+            // create sql connect
+            SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("SnCon").ToString());
+
+            Dal dal = new Dal();
+            response = dal.AddNews(news, connection);
+            return response;
+        }
     }
 }
