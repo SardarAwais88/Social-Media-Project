@@ -139,9 +139,28 @@ public Response News(News news, SqlConnection connection)
                     news.IsActive = Convert.ToInt32(dt.Rows[i]["IsActive"]);
                     news.CreatedOn = Convert.ToString(dt.Rows[i]["CreatedOn"]);
                     lstNews.Add(news);  
+
+                }
+                if (lstNews.Count>0)
+                {
+                    response.StatusCode=200;
+                    response.StatusMessage = "News Data found";
+                    response.ListNews = lstNews;
+                }
+                else
+                {
+                    response.StatusCode = 100;
+                    response.StatusMessage = "no News Data found";
+                    response.ListNews = null;
                 }
             }
-
+            else
+            {
+                response.StatusCode = 100;
+                response.StatusMessage = "no News Data found";
+                response.ListNews = null;
+            }
+            return response;
         }
 
     }
