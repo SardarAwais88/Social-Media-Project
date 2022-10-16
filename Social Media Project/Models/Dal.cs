@@ -179,12 +179,12 @@ public Response AddNews(News news, SqlConnection connection)
             if (i > 0)
             {
                 response.StatusCode = 200;
-                response.StatusMessage = "News Created";
+                response.StatusMessage = "Article Created";
             }
             else
             {
                 response.StatusCode = 100;
-                response.StatusMessage = "News Creation failed";
+                response.StatusMessage = "Article Creation failed";
             }
             return response;
             // cmd.CommandType = CommandType.Text;.
