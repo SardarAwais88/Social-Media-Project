@@ -192,5 +192,72 @@ public Response AddNews(News news, SqlConnection connection)
 
 
         }
+
+        public Response ArticleList(Article article, SqlConnection connection)
+        {
+            Response response = new Response();
+            SqlDataAdapter da = null;
+
+            // now we have two scenarios for article
+            // than we use condiotional statement
+            if (article.type=="User" )
+            {
+                // if it is user than article will return based on condition
+
+                new SqlDataAdapter("selelct * from Article where Email='"+article.Email+"' And IsActive=1", connection);
+            }
+            if (article.type == "Page")
+            {
+                // return all the article
+                new SqlDataAdapter("selelct * from Article where IsActive=1", connection);
+            }
+         //   SqlDataAdapter da = new SqlDataAdapter("selelct * from Article where IsActive=1", connection);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            List<Article> lstarticle = new List<Article>();
+            if (dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    /*Article article  = new Article();
+                    article.Id = Convert.ToInt32(dt.Rows[i]["ID"]);
+                    article.Title = Convert.ToString(dt.Rows[i]["Title"]);
+                    article.Content = Convert.ToString(dt.Rows[i]["Content"]);
+                    article.Email = Convert.ToString(dt.Rows[i]["Email"]);
+                    article.Image = Convert.ToString(dt.Rows[i]["IsActive"]);
+                    article = Convert.ToString(dt.Rows[i]["CreatedOn"]);
+                    lstarticle.Add(article);*/
+                    Article art = new Article();
+                    art.Id = Convert.ToInt32(dt.Rows[i]["ID"]);
+                    art.Title = Convert.ToString(dt.Rows[i]["Title"]);
+                    art.Content = Convert.ToString(dt.Rows[i]["Content"]);
+                    art.Email = Convert.ToString(dt.Rows[i]["Email"]);
+                    art.IsActive = Convert.ToInt32(dt.Rows[i]["IsActive"]);
+                    art.Image = Convert.ToString(dt.Rows[i]["Image"]);
+
+                    lstarticle.Add(art);
+                   
+                }
+                if (lstarticle.Count > 0)
+                {
+                    response.StatusCode = 200;
+                    response.StatusMessage = "News Data found";
+                    response.ListArticle = lstarticle;
+                }
+                else
+                {
+                    response.StatusCode = 100;
+                    response.StatusMessage = "no News Data found";
+                    response.ListNews = null;
+                }
+            }
+            else
+            {
+                response.StatusCode = 100;
+                response.StatusMessage = "no News Data found";
+                response.ListNews = null;
+            }
+            return response;
+        }
     }
 }
