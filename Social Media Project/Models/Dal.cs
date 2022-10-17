@@ -241,21 +241,21 @@ public Response AddNews(News news, SqlConnection connection)
                 if (lstarticle.Count > 0)
                 {
                     response.StatusCode = 200;
-                    response.StatusMessage = "News Data found";
+                    response.StatusMessage = "Article Data found";
                     response.ListArticle = lstarticle;
                 }
                 else
                 {
                     response.StatusCode = 100;
-                    response.StatusMessage = "no News Data found";
-                    response.ListNews = null;
+                    response.StatusMessage = "no article Data found";
+                    response.ListArticle = null;
                 }
             }
             else
             {
                 response.StatusCode = 100;
-                response.StatusMessage = "no News Data found";
-                response.ListNews = null;
+                response.StatusMessage = "no article Data found";
+                response.ListArticle = null;
             }
             return response;
         }
