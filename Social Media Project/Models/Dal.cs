@@ -314,7 +314,27 @@ public Response AddNews(News news, SqlConnection connection)
         }
 
         // now we create a mehtod for delete a faculity
+        public Response StaffRegistration(Staff staff, SqlConnection connection)
+        {
+            Response response = new Response();
+            // create sql connection
+            SqlCommand cmd = new SqlCommand("Insert into Staff(Name,Email, Password,IsActive)VALUES('" + staff.Name + "','" + staff.Email + "','" + staff.Password + "','" + staff.IsActive + "',1)", connection);
+            connection.Open();
+            int i = cmd.ExecuteNonQuery();
+            connection.Close();
 
+            if (i > 0)
+            {
+                response.StatusCode = 200;
+                response.StatusMessage = "Staff Registration Successfull";
+            }
+            else
+            {
+                response.StatusCode = 100;
+                response.StatusMessage = "Staff Registration failed";
+            }
+            return response;
+        }
 
     }
 }
