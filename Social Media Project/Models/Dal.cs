@@ -312,5 +312,9 @@ public Response AddNews(News news, SqlConnection connection)
             }
             return response;
         }
+
+        // now we create a mehtod for delete a faculity
+
+
     }
 }
