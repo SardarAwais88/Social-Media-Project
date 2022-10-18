@@ -261,13 +261,13 @@ public Response AddNews(News news, SqlConnection connection)
         }
 
 
-        public Response ArticleApproval(Registration registration, SqlConnection connection)
+        public Response ArticleApproval(Article article, SqlConnection connection)
         {
             // based on id we update it
             Response response = new Response();
             SqlCommand cmd = new SqlCommand
 
-          ("Update Registration Set IsAppproved =1 WHERE Id ='" + registration.Id + "'AND ISActive=1 ", connection);
+          ("Update Article  Set IsAppproved =1 WHERE Id ='" + article.Id + "'AND ISActive=1 ", connection);
             connection.Open();
             int i = cmd.ExecuteNonQuery();
             connection.Close();
@@ -275,12 +275,12 @@ public Response AddNews(News news, SqlConnection connection)
             if (i > 0)
             {
                 response.StatusCode = 200;
-                response.StatusMessage = "User Approved";
+                response.StatusMessage = "Article Approved";
             }
             else
             {
                 response.StatusCode = 100;
-                response.StatusMessage = "User  approval failed";
+                response.StatusMessage = "Article  approval failed";
             }
             return response;
             // cmd.CommandType = CommandType.Text;.

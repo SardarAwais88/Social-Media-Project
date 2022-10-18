@@ -45,7 +45,7 @@ namespace Social_Media_Project.Controllers
             SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("SnCon").ToString());
 
             Dal dal = new Dal();
-            response = dal.ArticleList(connection);
+            response = dal.ArticleList(article, connection);
             return response;
         }
 

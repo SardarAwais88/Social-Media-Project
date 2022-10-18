@@ -1,0 +1,13 @@
+﻿University Social Network Project
+-Users can register and login into the system once their registration is approved
+by the admin/
+
+- Once the user logged into the system, he she can write and post an articles on various 
+topics of his/her choice.
+- Users can also upload images with their post.
+-All users can view news feed posted by individual user.
+-All the user registration will be approved/ rejected by the admin as well as, all the post will be 
+kept pending until admin approves/rejects each and every post.
+
+-Admin Login has full authority on systemm, he she can add/delete Faculty.
+-Staff can view user profiles and also can post event whos details will be sent via sms to users.
