@@ -73,5 +73,21 @@ namespace Social_Media_Project.Controllers
             return response;
 
         }
+
+        // api for delete staff
+        [HttpPost]
+        [Route("DeleteStaff")]
+
+        public Response DeleteStaff(Staff staff)
+        {
+            Response response = new Response();
+            // create sql connect
+            SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("SnCon").ToString());
+
+            Dal dal = new Dal();
+            response = dal.DeleteStaff(staff, connection);
+            return response;
+
+        }
     }
 }

@@ -122,7 +122,7 @@ public Response AddNews(News news, SqlConnection connection)
         }
        
         public Response NewsList(SqlConnection connection)
-        {
+        {   
             Response response= new Response();
             SqlDataAdapter da = new SqlDataAdapter("selelct * from news where IsActive=1",connection);
             DataTable dt =new DataTable();
@@ -314,11 +314,11 @@ public Response AddNews(News news, SqlConnection connection)
         }
 
         // now we create a mehtod for delete a faculity
-        public Response StaffRegistration(Staff staff, SqlConnection connection)
+        public Response DeleteStaff(Staff staff, SqlConnection connection)
         {
             Response response = new Response();
             // create sql connection
-            SqlCommand cmd = new SqlCommand("Insert into Staff(Name,Email, Password,IsActive)VALUES('" + staff.Name + "','" + staff.Email + "','" + staff.Password + "','" + staff.IsActive + "',1)", connection);
+            SqlCommand cmd = new SqlCommand("Delete  from Staff where Id='" + staff.Id +"' AND IsActive =1", connection);
             connection.Open();
             int i = cmd.ExecuteNonQuery();
             connection.Close();
@@ -326,15 +326,101 @@ public Response AddNews(News news, SqlConnection connection)
             if (i > 0)
             {
                 response.StatusCode = 200;
-                response.StatusMessage = "Staff Registration Successfull";
+                response.StatusMessage = "Staff Delete Successfull";
             }
             else
             {
                 response.StatusCode = 100;
-                response.StatusMessage = "Staff Registration failed";
+                response.StatusMessage = "Staff delelte failed";
             }
             return response;
         }
 
+
+        // Methods for events
+
+        public Response AddEvent(Events events, SqlConnection connection)
+        {
+            // based on id we update it
+            Response response = new Response();
+            //  SqlCommand cmd = new SqlCommand();
+
+            SqlCommand cmd = new SqlCommand("Insert into Events(Title,Content,Email,IsActive)VALUES('" + events.Title + "','" + events.Content + "','" + events.Email + "',1,GetDate())", connection);
+            connection.Open();
+            int i = cmd.ExecuteNonQuery();
+            connection.Close();
+
+            if (i > 0)
+            {
+                response.StatusCode = 200;
+                response.StatusMessage = "Events Created";
+            }
+            else
+            {
+                response.StatusCode = 100;
+                response.StatusMessage = "Events Creation failed";
+            }
+            return response;
+            // cmd.CommandType = CommandType.Text;.
+
+
+
+        }
+
+        public Response Eventist(Events events, SqlConnection connection)
+        {
+            Response response = new Response();
+            SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM  Events where ISACTIVE=1 ",connection);
+
+            // now we have two scenarios for article
+         
+            //   SqlDataAdapter da = new SqlDataAdapter("selelct * from Article where IsActive=1", connection);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            List<Events> lstevents = new List<Events>();
+            if (dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    /*Article article  = new Article();
+                    article.Id = Convert.ToInt32(dt.Rows[i]["ID"]);
+                    article.Title = Convert.ToString(dt.Rows[i]["Title"]);
+                    article.Content = Convert.ToString(dt.Rows[i]["Content"]);
+                    article.Email = Convert.ToString(dt.Rows[i]["Email"]);
+                    article.Image = Convert.ToString(dt.Rows[i]["IsActive"]);
+                    article = Convert.ToString(dt.Rows[i]["CreatedOn"]);
+                    lstarticle.Add(article);*/
+                    Events event_ = new Events();
+                    event_.Id = Convert.ToInt32(dt.Rows[i]["ID"]);
+                    event_.Title = Convert.ToString(dt.Rows[i]["Title"]);
+                    events.Content = Convert.ToString(dt.Rows[i]["Content"]);
+                    event_.Email = Convert.ToString(dt.Rows[i]["Email"]);
+                    event_.IsActive = Convert.ToInt32(dt.Rows[i]["IsActive"]);
+                    event_.CreatedOn = Convert.ToString(dt.Rows[i]["CreatedOn"]);
+                    
+                    lstevents.Add(event_);
+
+                }
+                if (lstevents.Count > 0)
+                {
+                    response.StatusCode = 200;
+                    response.StatusMessage = "List Events Data found";
+                    response.ListEvents =lstevents;
+                }
+                else
+                {
+                    response.StatusCode = 100;
+                    response.StatusMessage = "no ListEvent Data found";
+                    response.ListEvents = null;
+                }
+            }
+            else
+            {
+                response.StatusCode = 100;
+                response.StatusMessage = "no article Data found";
+                response.ListEvents = null;
+            }
+            return response;
+        }
     }
 }
