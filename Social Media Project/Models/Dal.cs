@@ -2,7 +2,7 @@
 using System.Data;
 
 namespace Social_Media_Project.Models
-{
+{// OUR Dal class communicate with database
     public class Dal
 
     {
@@ -367,13 +367,14 @@ public Response AddNews(News news, SqlConnection connection)
 
         }
 
-        public Response Eventist(Events events, SqlConnection connection)
+
+        public Response EventsList(SqlConnection connection)
         {
             Response response = new Response();
-            SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM  Events where ISACTIVE=1 ",connection);
+            SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM  Events where ISACTIVE=1 ", connection);
 
             // now we have two scenarios for article
-         
+
             //   SqlDataAdapter da = new SqlDataAdapter("selelct * from Article where IsActive=1", connection);
             DataTable dt = new DataTable();
             da.Fill(dt);
@@ -393,11 +394,11 @@ public Response AddNews(News news, SqlConnection connection)
                     Events event_ = new Events();
                     event_.Id = Convert.ToInt32(dt.Rows[i]["ID"]);
                     event_.Title = Convert.ToString(dt.Rows[i]["Title"]);
-                    events.Content = Convert.ToString(dt.Rows[i]["Content"]);
+                    event_.Content = Convert.ToString(dt.Rows[i]["Content"]);
                     event_.Email = Convert.ToString(dt.Rows[i]["Email"]);
                     event_.IsActive = Convert.ToInt32(dt.Rows[i]["IsActive"]);
                     event_.CreatedOn = Convert.ToString(dt.Rows[i]["CreatedOn"]);
-                    
+
                     lstevents.Add(event_);
 
                 }
@@ -405,7 +406,7 @@ public Response AddNews(News news, SqlConnection connection)
                 {
                     response.StatusCode = 200;
                     response.StatusMessage = "List Events Data found";
-                    response.ListEvents =lstevents;
+                    response.ListEvents = lstevents;
                 }
                 else
                 {

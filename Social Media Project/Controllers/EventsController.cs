@@ -23,29 +23,29 @@ namespace Social_Media_Project.Controllers
         [HttpPost]
         [Route("AddEvents")]
 
-        public Response AddNews(News news)
+        public Response AddNews(Events events)
         {
             Response response = new Response();
             // create sql connect
             SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("SnCon").ToString());
 
             Dal dal = new Dal();
-            response = dal.AddNews(news, connection);
+            response = dal.AddEvent(events, connection);
             return response;
         }
 
 
         [HttpGet]
-        [Route("NewsList")]
+        [Route("EventList")]
 
-        public Response NewsList()
+        public Response EventList()
         {
             Response response = new Response();
             // create sql connect
             SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("SnCon").ToString());
 
             Dal dal = new Dal();
-            response = dal.NewsList( connection);
+            response = dal.EventsList(connection);
             return response;
         }
     }
